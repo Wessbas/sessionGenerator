@@ -32,13 +32,35 @@ public class Activator extends AbstractUIPlugin {
 		// delete sessionFile when it exists
 		File dir = new File(Configuration.directory);
 		if (dir.exists()) {
-			dir.delete();
+			deleteDirectory(dir);
+			System.out.println("Files deleted!");
 		}
 		
 		SessionGenerator sessionGenerator = new SessionGenerator();
 		sessionGenerator.createSession(Configuration.nrOfSessions , Configuration.directory);
 		
 		plugin = this;
+	}
+	
+	/**
+	 * @param directory
+	 * @return
+	 */
+	public static boolean deleteDirectory(File directory) {
+	    if(directory.exists()){
+	        File[] files = directory.listFiles();
+	        if(null!=files){
+	            for(int i=0; i<files.length; i++) {
+	                if(files[i].isDirectory()) {
+	                    deleteDirectory(files[i]);
+	                }
+	                else {
+	                    files[i].delete();
+	                }
+	            }
+	        }
+	    }
+	    return(directory.delete());
 	}
 
 	/*

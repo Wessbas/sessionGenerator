@@ -4,10 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class SessionGenerator {
 	
@@ -26,10 +25,7 @@ public class SessionGenerator {
 			// currentTime
 			long time = System.currentTimeMillis();
 			
-			Timestamp tstamp = new Timestamp(new Date().getTime());
-			System.out.println(tstamp.getTime()); 
-			
-			
+			time = TimeUnit.NANOSECONDS.convert(time, TimeUnit.MILLISECONDS);
 			
 			GeneratedSession generatedSession = new GeneratedSession();
 								
@@ -40,16 +36,19 @@ public class SessionGenerator {
 			UseCase entry = new UseCase("entry", time, time + 1000);			
 			generatedSession.addToUseCaseList(entry);
 			
-			createSession(generatedSession, time + randInt(8000, 12000), 0);
+			long timeOffSet = randInt(800, 1200);
+			timeOffSet = TimeUnit.NANOSECONDS.convert(timeOffSet, TimeUnit.MILLISECONDS);
+			
+			createSession(generatedSession, time + timeOffSet, 2);
 			
 //			double random = Math.random();		
-			
+//			
 //			if (random < 0.5) {
-//				createSession(generatedSession, time + randInt(8000, 12000), 0);	
+//				createSession(generatedSession, time + timeOffSet, 0);	
 //			} else if (random >= 0.5 && random <= 0.75) {
-//				createSession(generatedSession, time + randInt(8000, 12000), 1);
+//				createSession(generatedSession, time + timeOffSet, 1);
 //			} else {
-//				createSession(generatedSession, time + randInt(8000, 12000), 2);
+//				createSession(generatedSession, time + timeOffSet, 2);
 //			}				
 					
 		}		
@@ -73,15 +72,14 @@ public class SessionGenerator {
 			nextUseCase = getNextUseCaseHeavyBuyer(currentUseCase.getUseCaseName() , time);	
 		} else if (sessionType == 2) {
 			nextUseCase = getNextUseCaseNeverBuyer(currentUseCase.getUseCaseName() , time);	
-		} else {
-			// Fehler
-		}		
+		} 	
 		
 		// end condition
 		if (!nextUseCase.getUseCaseName().equals("$")) {				
 			generatedSession.addToUseCaseList(nextUseCase);
-			time = time + randInt(8000, 12000);
-			createSession(generatedSession, time, sessionType);
+			long timeOffSet = randInt(800, 1200);
+			timeOffSet = TimeUnit.NANOSECONDS.convert(timeOffSet, TimeUnit.MILLISECONDS);
+			createSession(generatedSession, time + timeOffSet, sessionType);
 		}	else {	
 			printToFile(generatedSession);
 		}
@@ -100,7 +98,8 @@ public class SessionGenerator {
 		
 		UseCase newUseCase = null;
 		
-		int timeOffSet = randInt(800, 1200);
+		long timeOffSet = randInt(800, 1200);
+		timeOffSet = TimeUnit.NANOSECONDS.convert(timeOffSet, TimeUnit.MILLISECONDS);
 		
 		if (useCaseName.equals("entry")) {			
 			if (random < 0.5) {
