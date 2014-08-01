@@ -39,15 +39,14 @@ public class SessionGenerator {
 			long timeOffSet = randInt(800, 1200);
 			timeOffSet = TimeUnit.NANOSECONDS.convert(timeOffSet, TimeUnit.MILLISECONDS);
 			
-			createSession(generatedSession, time + timeOffSet, 2);
+			double random = Math.random();		
 			
-//			double random = Math.random();		
-//			
-//			if (random < 0.5) {
-//				createSession(generatedSession, time + timeOffSet, 0);	
-//			} else if (random >= 0.5 && random <= 0.75) {
-//				createSession(generatedSession, time + timeOffSet, 1);
-//			} else {
+			if (random < 0.6) {
+				createSession(generatedSession, time + timeOffSet, 0);	
+			} else if (random >= 0.6 && random <= 1.0) {
+				createSession(generatedSession, time + timeOffSet, 1);
+			} 
+//			else {
 //				createSession(generatedSession, time + timeOffSet, 2);
 //			}				
 					
@@ -108,56 +107,92 @@ public class SessionGenerator {
 				newUseCase = new UseCase("search", time, time + timeOffSet);
 			}				
 		} else if (useCaseName.equals("browse")) {			
-			if (random < 0.4) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else if (random >= 0.4 && random < 0.6) {
-				newUseCase = new UseCase("select", time, time + timeOffSet);
-			} else if (random >= 0.6 && random < 0.95) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}								
+			newUseCase = new UseCase("addToCart", time, time + timeOffSet);								
 		} else if (useCaseName.equals("search")) {			
-			if (random < 0.4) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else if (random >= 0.4 && random < 0.6) {
-				newUseCase = new UseCase("select", time, time + timeOffSet);
-			} else if (random >= 0.6 && random < 0.95) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}			
+			newUseCase = new UseCase("addToCart", time, time + timeOffSet);		
 		} else if (useCaseName.equals("addToCart")) {			
-			if (random < 0.2) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else if (random >= 0.2 && random < 0.25) {
-				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
-			} else if (random >= 0.25 && random < 0.45) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else if (random >= 0.45 && random < 0.65) {
-				newUseCase = new UseCase("select", time, time + timeOffSet);
-			} else if (random >= 0.65 && random < 0.95) {
-				newUseCase = new UseCase("pay", time, time + timeOffSet);
+			newUseCase = new UseCase("pay", time, time + timeOffSet);		
+		} else if (useCaseName.equals("pay")) {	
+			if (random < 0.3) {
+				newUseCase = new UseCase("pay", time, time + timeOffSet);	
 			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}			
-		} else if (useCaseName.equals("pay")) {			
-			newUseCase = new UseCase("$", 0, 0);			
-		} else if (useCaseName.equals("select")) {			
-			if (random < 0.425) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else if (random >= 0.425 && random < 0.85) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else if (random >= 0.85 && random < 0.9) {
-				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
-			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}			
-		}
-		
+				newUseCase = new UseCase("$", 0, 0);	
+			}					
+		} 	
 		return newUseCase;
-		
 	}
+	
+//	/**
+//	 * Get next useCase of sessionType one.
+//	 * 
+//	 * @param useCaseName
+//	 * @param time
+//	 * @return
+//	 */
+//	private UseCase getNextUseCaseOccationalBuyer(String useCaseName, final long time) {
+//		
+//		double random = Math.random();
+//		
+//		UseCase newUseCase = null;
+//		
+//		long timeOffSet = randInt(800, 1200);
+//		timeOffSet = TimeUnit.NANOSECONDS.convert(timeOffSet, TimeUnit.MILLISECONDS);
+//		
+//		if (useCaseName.equals("entry")) {			
+//			if (random < 0.5) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			}				
+//		} else if (useCaseName.equals("browse")) {			
+//			if (random < 0.4) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else if (random >= 0.4 && random < 0.6) {
+//				newUseCase = new UseCase("select", time, time + timeOffSet);
+//			} else if (random >= 0.6 && random < 0.95) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}								
+//		} else if (useCaseName.equals("search")) {			
+//			if (random < 0.4) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else if (random >= 0.4 && random < 0.6) {
+//				newUseCase = new UseCase("select", time, time + timeOffSet);
+//			} else if (random >= 0.6 && random < 0.95) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}			
+//		} else if (useCaseName.equals("addToCart")) {			
+//			if (random < 0.2) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else if (random >= 0.2 && random < 0.25) {
+//				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
+//			} else if (random >= 0.25 && random < 0.45) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else if (random >= 0.45 && random < 0.65) {
+//				newUseCase = new UseCase("select", time, time + timeOffSet);
+//			} else if (random >= 0.65 && random < 0.95) {
+//				newUseCase = new UseCase("pay", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}			
+//		} else if (useCaseName.equals("pay")) {			
+//			newUseCase = new UseCase("$", 0, 0);			
+//		} else if (useCaseName.equals("select")) {			
+//			if (random < 0.425) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else if (random >= 0.425 && random < 0.85) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else if (random >= 0.85 && random < 0.9) {
+//				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}			
+//		}		
+//		return newUseCase;
+//	}
 	
 	/**
 	 * Get next useCase of sessionType one.
@@ -174,62 +209,98 @@ public class SessionGenerator {
 		int timeOffSet = randInt(800, 1200);
 		
 		if (useCaseName.equals("entry")) {			
-			if (random <= 0.5) {
+			if (random < 0.8) {
 				newUseCase = new UseCase("browse", time, time + timeOffSet);
 			} else {
 				newUseCase = new UseCase("search", time, time + timeOffSet);
 			}				
 		} else if (useCaseName.equals("browse")) {			
-			if (random <= 0.35) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else if (random >= 0.35 && random < 0.55) {
-				newUseCase = new UseCase("select", time, time + timeOffSet);
-			} else if (random >= 0.55 && random < 0.85) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}			
+			newUseCase = new UseCase("select", time, time + timeOffSet);								
 		} else if (useCaseName.equals("search")) {			
-			if (random <= 0.35) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else if (random >= 0.35 && random < 0.55) {
-				newUseCase = new UseCase("select", time, time + timeOffSet);
-			} else if (random >= 0.55 && random < 0.85) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}				
-		} else if (useCaseName.equals("addToCart")) {			
-			if (random <= 0.225) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else if (random >= 0.225 && random < 0.325) {
-				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
-			} else if (random >= 0.325 && random < 0.55) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else if (random >= 0.55 && random < 0.65) {
-				newUseCase = new UseCase("select", time, time + timeOffSet);
-			} else if (random >= 0.65 && random < 0.95) {
-				newUseCase = new UseCase("pay", time, time + timeOffSet);
-			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}			
-		} else if (useCaseName.equals("pay")) {			
-			newUseCase = new UseCase("$", 0, 0);			
+			newUseCase = new UseCase("select", time, time + timeOffSet);		
 		} else if (useCaseName.equals("select")) {			
-			if (random <= 0.325) {
-				newUseCase = new UseCase("browse", time, time + timeOffSet);
-			} else if (random >= 0.325 && random < 0.65) {
-				newUseCase = new UseCase("search", time, time + timeOffSet);
-			} else if (random >= 0.65 && random < 0.95) {
-				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
+			newUseCase = new UseCase("addToCart", time, time + timeOffSet);		
+		} else if (useCaseName.equals("addToCart")) {	
+			if (random < 0.2) {
+				newUseCase = new UseCase("addToCart", time, time + timeOffSet);	
 			} else {
-				newUseCase = new UseCase("$", 0, 0);
-			}			
-		}
-		
-		return newUseCase;
-		
+				newUseCase = new UseCase("$", 0, 0);	
+			}					
+		} 	
+		return newUseCase;	
 	}
+		
+//	/**
+//	 * Get next useCase of sessionType one.
+//	 * 
+//	 * @param useCaseName
+//	 * @param time
+//	 * @return
+//	 */
+//	private UseCase getNextUseCaseHeavyBuyer(String useCaseName, final long time) {
+//		
+//		double random = Math.random();
+//		UseCase newUseCase = null;
+//		
+//		int timeOffSet = randInt(800, 1200);
+//		
+//		if (useCaseName.equals("entry")) {			
+//			if (random <= 0.5) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			}				
+//		} else if (useCaseName.equals("browse")) {			
+//			if (random <= 0.35) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else if (random >= 0.35 && random < 0.55) {
+//				newUseCase = new UseCase("select", time, time + timeOffSet);
+//			} else if (random >= 0.55 && random < 0.85) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}			
+//		} else if (useCaseName.equals("search")) {			
+//			if (random <= 0.35) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else if (random >= 0.35 && random < 0.55) {
+//				newUseCase = new UseCase("select", time, time + timeOffSet);
+//			} else if (random >= 0.55 && random < 0.85) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}				
+//		} else if (useCaseName.equals("addToCart")) {			
+//			if (random <= 0.225) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else if (random >= 0.225 && random < 0.325) {
+//				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
+//			} else if (random >= 0.325 && random < 0.55) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else if (random >= 0.55 && random < 0.65) {
+//				newUseCase = new UseCase("select", time, time + timeOffSet);
+//			} else if (random >= 0.65 && random < 0.95) {
+//				newUseCase = new UseCase("pay", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}			
+//		} else if (useCaseName.equals("pay")) {			
+//			newUseCase = new UseCase("$", 0, 0);			
+//		} else if (useCaseName.equals("select")) {			
+//			if (random <= 0.325) {
+//				newUseCase = new UseCase("browse", time, time + timeOffSet);
+//			} else if (random >= 0.325 && random < 0.65) {
+//				newUseCase = new UseCase("search", time, time + timeOffSet);
+//			} else if (random >= 0.65 && random < 0.95) {
+//				newUseCase = new UseCase("addToCart", time, time + timeOffSet);
+//			} else {
+//				newUseCase = new UseCase("$", 0, 0);
+//			}			
+//		}
+//		
+//		return newUseCase;
+//		
+//	}
 	
 	/**
 	 * Get next useCase of sessionType one.
