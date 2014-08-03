@@ -1,7 +1,5 @@
 package net.sf.markov4jmeter.sessiongenerator;
 
-import java.io.File;
-
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -29,40 +27,13 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		
-		// delete sessionFile when it exists
-		File dir = new File(Configuration.directory);
-		if (dir.exists()) {
-			deleteDirectory(dir);
-			System.out.println("Files deleted!");
-		}
-		
+		FilePrinter.deleteFileIfExists();				
 		SessionGenerator sessionGenerator = new SessionGenerator();
-		sessionGenerator.createSession(Configuration.nrOfSessions , Configuration.directory);
+		sessionGenerator.createSession(Configuration.nrOfSessions);
 		
 		plugin = this;
 	}
 	
-	/**
-	 * @param directory
-	 * @return
-	 */
-	public static boolean deleteDirectory(File directory) {
-	    if(directory.exists()){
-	        File[] files = directory.listFiles();
-	        if(null!=files){
-	            for(int i=0; i<files.length; i++) {
-	                if(files[i].isDirectory()) {
-	                    deleteDirectory(files[i]);
-	                }
-	                else {
-	                    files[i].delete();
-	                }
-	            }
-	        }
-	    }
-	    return(directory.delete());
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)

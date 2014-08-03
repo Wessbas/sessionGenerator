@@ -1,8 +1,5 @@
 package net.sf.markov4jmeter.sessiongenerator;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.UUID;
@@ -10,16 +7,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SessionGenerator {
 	
-	private String directory;
-	
 	/**
 	 * @param nbrOfSessions
 	 * @throws IOException
 	 */
-	public void createSession(int nbrOfSessions, String directory) throws IOException {
-		
-		this.directory = directory;
-				
+	public void createSession(int nbrOfSessions) throws IOException {		
+			
 		for (int i = 0; i < nbrOfSessions; i++) {
 			
 			// currentTime
@@ -80,7 +73,7 @@ public class SessionGenerator {
 			timeOffSet = TimeUnit.NANOSECONDS.convert(timeOffSet, TimeUnit.MILLISECONDS);
 			createSession(generatedSession, time + timeOffSet, sessionType);
 		}	else {	
-			printToFile(generatedSession);
+			FilePrinter.printSessionToFile(generatedSession);
 		}
 	}
 
@@ -378,42 +371,5 @@ public class SessionGenerator {
 
 	    return randomNum;
 	}
-	
-	/**
-	 * Print generated sessions to file. 
-	 * 
-	 * @param sessionOne
-	 * @throws IOException
-	 */
-	private void printToFile (GeneratedSession sessionOne) throws IOException {
-		
-		// create the output directory if it does not exists
-		File dir = new File(this.directory);
-		if (!dir.exists()) {
-			dir.mkdir();
-		}
-		
-		FileWriter fwRT = new FileWriter(this.directory 
-				+ "/generated_session_logs.dat", true);
-		
-		BufferedWriter bw = new BufferedWriter(fwRT);
-				
-		bw.append(sessionOne.getSessionID());		
-		
-		for (int i = 0; i< sessionOne.getUseCaseList().size(); i++) {
-			bw.append(";");
-			bw.append("\"" + sessionOne.getUseCaseList().get(i).getUseCaseName() + "\"");
-			bw.append(":");
-			bw.append(Long.toString(sessionOne.getUseCaseList().get(i).getStartTime()));
-			bw.append(":");
-			bw.append(Long.toString(sessionOne.getUseCaseList().get(i).getEndTime()));
-		}		
-		
-		bw.append("\n");
-        bw.flush();
-        bw.close();
-				
-	}
-	
 	
 }
