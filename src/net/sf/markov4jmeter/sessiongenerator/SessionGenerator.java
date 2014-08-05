@@ -35,13 +35,15 @@ public class SessionGenerator {
 			
 			if (random < 900) {
 				createSession(generatedSession, entry.getEndTime() + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax), 0);	
-			} else if (random >= 900 && random <= 1000) {
+			} else if (random >= 900 && random < 1000) {
 				createSession(generatedSession, entry.getEndTime() + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax), 1);
-			} 
+			}  else  {
+				createSession(generatedSession, entry.getEndTime() + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax), 2);
+			}
 					
 		}		
 		
-		System.out.println("Sessions Created " + nbrOfSessions + " times");
+		System.out.println("Sessions Created: " + nbrOfSessions);
 		
 	} 
 	
@@ -200,7 +202,7 @@ public class SessionGenerator {
 		} else if (useCaseName.equals("select")) {			
 			newUseCase = new UseCase("addToCart", time, time + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax));		
 		} else if (useCaseName.equals("addToCart")) {	
-			if (random < 200) {
+			if (random < 800) {
 				newUseCase = new UseCase("addToCart", time, time + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax));	
 			} else {
 				newUseCase = new UseCase("$", 0, 0);	
@@ -273,10 +275,8 @@ public class SessionGenerator {
 			} else {
 				newUseCase = new UseCase("$", 0, 0);
 			}			
-		}
-		
+		}		
 		return newUseCase;
-		
 	}
 	
 	/**
@@ -325,10 +325,8 @@ public class SessionGenerator {
 			}  else {
 				newUseCase = new UseCase("$", 0, 0);
 			}			
-		}
-		
+		}		
 		return newUseCase;
-		
 	}
 
 
