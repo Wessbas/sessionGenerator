@@ -30,12 +30,12 @@ public class SessionGenerator {
 			// First UseCase
 			UseCase entry = new UseCase("entry", time, time + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax));			
 			generatedSession.addToUseCaseList(entry);
-
-			double random = randInt(0, 1000);	
+						
+			double random = randInt(0, 999);	
 			
 			if (random < 900) {
 				createSession(generatedSession, entry.getEndTime() + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax), 0);	
-			} else if (random >= 900 && random < 1000) {
+			} else if (random >= 900 && random <= 1000) {
 				createSession(generatedSession, entry.getEndTime() + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax), 1);
 			}  else  {
 				createSession(generatedSession, entry.getEndTime() + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax), 2);
@@ -82,7 +82,7 @@ public class SessionGenerator {
 	 */
 	private UseCase getNextUseCaseDummyBuyer(String useCaseName, final long time) {
 		
-		double random = randInt(0, 1000);	
+		double random = randInt(0, 999);	
 		
 		UseCase newUseCase = null;
 		
@@ -117,7 +117,7 @@ public class SessionGenerator {
 	 */
 	private UseCase getNextUseCaseOccationalBuyer(String useCaseName, final long time) {
 		
-		double random = randInt(0, 1000);	
+		double random = randInt(0, 999);	
 		
 		UseCase newUseCase = null;
 				
@@ -186,7 +186,7 @@ public class SessionGenerator {
 	 */
 	private UseCase getNextUseCaseDumpBuyer(String useCaseName, final long time) {
 		
-		double random = randInt(0, 1000);	
+		double random = randInt(0, 999);	
 		UseCase newUseCase = null;
 		
 		if (useCaseName.equals("entry")) {			
@@ -220,7 +220,7 @@ public class SessionGenerator {
 	 */
 	private UseCase getNextUseCaseHeavyBuyer(String useCaseName, final long time) {
 		
-		double random = randInt(0, 1000);	
+		double random = randInt(0, 999);	
 		UseCase newUseCase = null;
 		
 		if (useCaseName.equals("entry")) {			
@@ -250,9 +250,9 @@ public class SessionGenerator {
 				newUseCase = new UseCase("$", 0, 0);
 			}				
 		} else if (useCaseName.equals("addToCart")) {			
-			if (random <= 225) {
+			if (random <= 220) {
 				newUseCase = new UseCase("browse", time, time + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax));
-			} else if (random >= 225 && random < 325) {
+			} else if (random >= 220 && random < 325) {
 				newUseCase = new UseCase("addToCart", time, time + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax));
 			} else if (random >= 325 && random < 550) {
 				newUseCase = new UseCase("search", time, time + randLong(Configuration.timeOffSetMin, Configuration.timeOffSetMax));
@@ -288,7 +288,7 @@ public class SessionGenerator {
 	 */
 	private UseCase getNextUseCaseNeverBuyer(String useCaseName, final long time) {
 		
-		double random = randInt(0, 1000);	
+		double random = randInt(0, 999);	
 		UseCase newUseCase = null;
 		
 		if (useCaseName.equals("entry")) {			
